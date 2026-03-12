@@ -1,0 +1,34 @@
+* Backlog Wiki Preview Sample
+
+このファイルはプレビューのテスト用です。
+左側のエディタで編集すると、右側のプレビューにリアルタイムで反映されます。
+
+** 記法サンプル
+
+- ''太字'' や '''斜体'''、%%打ち消し線%% が使えます。
+- [[Google:https://www.google.com]] へのリンク
+- リストも表示可能です。
+-- ネストしたリスト
+
+** テーブル
+
+|項目|内容|h
+|OS|macOS|
+|Editor|VS Code|
+|Language|TypeScript|
+
+** 引用
+
+> これは引用文です。
+> Backlog Wiki 記法を忠実に再現します。
+
+** コードブロック
+
+{code}
+function hello() {
+  console.log("Hello, Backlog Wiki!");
+}
+{/code}
+
+----
+水平線も引けます。

@@ -1,0 +1,80 @@
+{
+  "name": "vscode-backlog-wiki-preview",
+  "displayName": "Backlog Wiki Preview",
+  "description": "Real-time Backlog Wiki preview for VS Code",
+  "version": "1.0.0",
+  "publisher": "nzsys",
+  "type": "module",
+  "engines": {
+    "vscode": "^1.80.0"
+  },
+  "categories": [
+    "Programming Languages",
+    "Visualization"
+  ],
+  "main": "./dist/extension.js",
+  "activationEvents": [
+    "onLanguage:backlog"
+  ],
+  "contributes": {
+    "languages": [
+      {
+        "id": "backlog",
+        "aliases": [
+          "Backlog Wiki",
+          "backlog"
+        ],
+        "extensions": [
+          ".backlog",
+          ".bl"
+        ],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "backlog",
+        "scopeName": "text.backlog",
+        "path": "./syntaxes/backlog.tmLanguage.json"
+      }
+    ],
+    "commands": [
+      {
+        "command": "backlog-wiki-preview.showPreview",
+        "title": "Open Backlog Wiki Preview",
+        "icon": "$(layout-panel-off)"
+      }
+    ],
+    "menus": {
+      "editor/title": [
+        {
+          "command": "backlog-wiki-preview.showPreview",
+          "when": "resourceLangId == backlog",
+          "group": "navigation"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile",
+    "test": "node ./dist/test/runTest.js",
+    "unit-test": "mocha dist/test/unit/**/*.test.js",
+    "package": "npx @vscode/vsce package",
+    "install-local": "npx @vscode/vsce package && code --install-extension *.vsix"
+  },
+  "devDependencies": {
+    "@types/chai": "^4.3.5",
+    "@types/mocha": "^10.0.1",
+    "@types/node": "18.x",
+    "@types/vscode": "^1.80.0",
+    "@vscode/test-electron": "^2.5.2",
+    "@vscode/vsce": "^2.19.0",
+    "chai": "^4.3.7",
+    "glob": "^10.2.6",
+    "mocha": "^10.2.0",
+    "typescript": "^5.1.3"
+  }
+}

@@ -1,0 +1,80 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "Backlog Wiki",
+  "scopeName": "text.backlog",
+  "patterns": [
+    {
+      "include": "#heading"
+    },
+    {
+      "include": "#list"
+    },
+    {
+      "include": "#inline-format"
+    },
+    {
+      "include": "#code-block"
+    },
+    {
+      "include": "#link"
+    }
+  ],
+  "repository": {
+    "heading": {
+      "patterns": [
+        {
+          "name": "markup.heading.backlog",
+          "match": "^\\*{1,5}\\s.*$"
+        }
+      ]
+    },
+    "list": {
+      "patterns": [
+        {
+          "name": "markup.list.unnumbered.backlog",
+          "match": "^-{1,3}\\s.*$"
+        },
+        {
+          "name": "markup.list.numbered.backlog",
+          "match": "^\\+{1,3}\\s.*$"
+        }
+      ]
+    },
+    "inline-format": {
+      "patterns": [
+        {
+          "name": "markup.bold.backlog",
+          "begin": "''",
+          "end": "''"
+        },
+        {
+          "name": "markup.italic.backlog",
+          "begin": "'''",
+          "end": "'''"
+        },
+        {
+          "name": "markup.strikethrough.backlog",
+          "begin": "%%",
+          "end": "%%"
+        }
+      ]
+    },
+    "code-block": {
+      "patterns": [
+        {
+          "name": "markup.raw.block.backlog",
+          "begin": "^\\{code.*\\}$",
+          "end": "^\\{/code\\}$"
+        }
+      ]
+    },
+    "link": {
+      "patterns": [
+        {
+          "name": "markup.underline.link.backlog",
+          "match": "\\[\\[[^\\]]+\\]\\]"
+        }
+      ]
+    }
+  }
+}
