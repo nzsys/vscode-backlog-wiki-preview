@@ -3,11 +3,33 @@ export class BacklogWikiParser {
         const lines = rawText.split(/\r?\n/);
         const htmlLines = [];
         let inCodeBlock = false;
+        let inMarkdownCodeBlock = false;
+        let codeBlockLanguage = '';
         let inUnorderedList = false;
         let inOrderedList = false;
         let inTable = false;
         for (let i = 0; i < lines.length; i++) {
             const line = lines[i];
+            // Markdown-style code block
+            const markdownCodeMatch = line.match(/^```(\w*)$/);
+            if (markdownCodeMatch) {
+                if (!inMarkdownCodeBlock) {
+                    inMarkdownCodeBlock = true;
+                    codeBlockLanguage = markdownCodeMatch[1] || 'plaintext';
+                    htmlLines.push('<pre><code>');
+                }
+                else {
+                    inMarkdownCodeBlock = false;
+                    codeBlockLanguage = '';
+                    htmlLines.push('</code></pre>');
+                }
+                continue;
+            }
+            if (inMarkdownCodeBlock) {
+                htmlLines.push(this.escapeHtml(line));
+                continue;
+            }
+            // Backlog Wiki-style code block
             if (line.match(/^\{code.*\}$/)) {
                 inCodeBlock = true;
                 htmlLines.push('<pre><code>');

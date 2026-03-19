@@ -18,14 +18,19 @@ export class BacklogPreviewPanel {
             }
         }, null, this._disposables);
         vscode.window.onDidChangeActiveTextEditor(editor => {
-            if (editor && editor.document.uri.toString() === this._document.uri.toString()) {
+            if (editor && editor.document.languageId === 'backlog') {
+                this._document = editor.document;
+                this._panel.title = `Preview ${editor.document.fileName.split('/').pop()}`;
                 this._update();
             }
         }, null, this._disposables);
     }
     static createOrShow(extensionUri, document) {
         if (BacklogPreviewPanel.currentPanel) {
+            BacklogPreviewPanel.currentPanel._document = document;
+            BacklogPreviewPanel.currentPanel._panel.title = `Preview ${document.fileName.split('/').pop()}`;
             BacklogPreviewPanel.currentPanel._panel.reveal(vscode.ViewColumn.Beside);
+            BacklogPreviewPanel.currentPanel._update();
             return;
         }
         const panel = vscode.window.createWebviewPanel('backlogPreview', `Preview ${document.fileName.split('/').pop()}`, vscode.ViewColumn.Beside, {

@@ -37,5 +37,17 @@ describe('BacklogWikiParser', () => {
         expect(parser.convertToHtml('[[Title:https://example.com]]').value).to.equal('<a href="https://example.com">Title</a>');
         expect(parser.convertToHtml('[[https://example.com]]').value).to.equal('<a href="https://example.com">https://example.com</a>');
     });
+    it('should handle markdown-style code blocks', () => {
+        const code = parser.convertToHtml('```\nlet x = 5;\n```').value;
+        expect(code).to.contain('<pre><code>let x = 5;</code></pre>');
+    });
+    it('should handle markdown-style code blocks with language', () => {
+        const code = parser.convertToHtml('```javascript\nlet x = 5;\n```').value;
+        expect(code).to.contain('<pre><code>let x = 5;</code></pre>');
+    });
+    it('should escape html in markdown code blocks', () => {
+        const code = parser.convertToHtml('```\n<script>alert(1)</script>\n```').value;
+        expect(code).to.contain('<pre><code>&lt;script&gt;alert(1)&lt;/script&gt;</code></pre>');
+    });
 });
 //# sourceMappingURL=parser.test.js.map

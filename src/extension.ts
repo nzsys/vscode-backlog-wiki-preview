@@ -7,12 +7,12 @@ export function activate(context: vscode.ExtensionContext) {
     const showPreviewCommand = vscode.commands.registerCommand('backlog-wiki-preview.showPreview', () => {
         const editor = vscode.window.activeTextEditor
         if (!editor) {
-            vscode.window.showErrorMessage('Please open a Backlog Wiki file (.backlog, .bl) first.')
+            vscode.window.showErrorMessage('Please open a file first.')
             return
         }
 
         if (editor.document.languageId !== 'backlog') {
-            vscode.window.showErrorMessage('This command only works for Backlog Wiki files.')
+            vscode.window.showErrorMessage('This command only works for Backlog Wiki format files.')
             return
         }
 

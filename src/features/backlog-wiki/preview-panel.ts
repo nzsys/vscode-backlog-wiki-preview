@@ -4,7 +4,7 @@ import { BacklogWikiParser, WikiHtml } from './parser.js'
 export class BacklogPreviewPanel {
     public static currentPanel: BacklogPreviewPanel | undefined
     private readonly _panel: vscode.WebviewPanel
-    private readonly _document: vscode.TextDocument
+    private _document: vscode.TextDocument
     private _disposables: vscode.Disposable[] = []
     private readonly _parser: BacklogWikiParser
 
@@ -24,7 +24,9 @@ export class BacklogPreviewPanel {
         }, null, this._disposables)
 
         vscode.window.onDidChangeActiveTextEditor(editor => {
-            if (editor && editor.document.uri.toString() === this._document.uri.toString()) {
+            if (editor && editor.document.languageId === 'backlog') {
+                this._document = editor.document
+                this._panel.title = `Preview ${editor.document.fileName.split('/').pop()}`
                 this._update()
             }
         }, null, this._disposables)
@@ -32,7 +34,10 @@ export class BacklogPreviewPanel {
 
     public static createOrShow(extensionUri: vscode.Uri, document: vscode.TextDocument) {
         if (BacklogPreviewPanel.currentPanel) {
+            BacklogPreviewPanel.currentPanel._document = document
+            BacklogPreviewPanel.currentPanel._panel.title = `Preview ${document.fileName.split('/').pop()}`
             BacklogPreviewPanel.currentPanel._panel.reveal(vscode.ViewColumn.Beside)
+            BacklogPreviewPanel.currentPanel._update()
             return
         }
 

@@ -1,0 +1,60 @@
+* Markdown コードブロック対応テスト
+
+このファイルでは新しく対応した Markdown スタイルのコードブロックをテストします。
+
+** JavaScript コード例
+
+```javascript
+function greet(name) {
+  console.log(`Hello, ${name}!`);
+  return name;
+}
+```
+
+** Python コード例
+
+```python
+def factorial(n):
+    if n <= 1:
+        return 1
+    return n * factorial(n - 1)
+```
+
+** HTML コード例
+
+```html
+<div class="container">
+  <h1>Hello World</h1>
+  <p>This is a test</p>
+</div>
+```
+
+** プレーンテキストコードブロック
+
+```
+const x = 10;
+const y = 20;
+console.log(x + y);
+```
+
+** 従来の Backlog Wiki コードブロック
+
+{code}
+// これは従来のコードブロック形式です
+// 両方とも使用可能です
+function oldStyle() {
+  return "test";
+}
+{/code}
+
+** その他の機能も確認
+
+- リスト
++ 順序付きリスト
+''**太字**''
+'''*斜体*'''
+%%打ち消し線%%
+
+[[リンク:https://example.com]]
+
+> 引用文です
